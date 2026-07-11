@@ -403,11 +403,12 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   object-position: center 22%;
   display: block;
   border: 1px solid rgba(114, 47, 55, 0.08);
+  filter: grayscale(100%) contrast(1.06);
 }
 
 .intro-card-names {
   font-family: var(--serif);
-  font-size: clamp(1.55rem, 6vw, 1.85rem);
+  font-size: clamp(1.35rem, 5.5vw, 1.75rem);
   font-weight: 400;
   color: var(--burgundy);
   line-height: 1.15;
@@ -1170,8 +1171,12 @@ body.kina-mode .countdown-item {
   color: var(--burgundy);
   font-family: var(--serif);
   font-weight: 600;
-  font-size: clamp(2.2rem, 9vw, 3rem);
+  font-size: clamp(1.85rem, 8vw, 2.75rem);
   line-height: 1.15;
+}
+
+.name-right .letter-space {
+  width: 0.28em;
 }
 
 .invite.show .name-left .letter {

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var KINA_DATE = new Date('2026-10-02T20:00:00+03:00');
+  var KINA_DATE = new Date('2026-09-06T19:00:00+03:00');
   var KINA_THEME_DAYS = 7;
   var MUSIC_START = 58;
   var countdownCelebrated = false;
@@ -9,18 +9,18 @@
 
   /* Hediye bilgileri — buradan güncelleyin */
   var GIFT = {
-    name: 'Naz & Yakup',
-    iban: 'TR00 0000 0000 0000 0000 0000 00'
+    name: 'Tamara Kutluksaman',
+    iban: 'TR49 0004 6000 5688 8000 4354 80'
   };
 
   var INVITE_TEXT = {
     generic:
       'Sevgili dostlarımız, hayatımızın en güzel günlerine sizleri de davet ediyoruz. ' +
-      'Kına gecemizde coşkumuzu, eğlencemizde ise birlikte güzel vakit geçirmek ' +
+      'Kına gecemizde coşkumuzu, düğünümüzde ise birlikte güzel vakit geçirmek ' +
       'için sizi aramızda görmekten büyük mutluluk duyacağız.',
     personal:
       'hayatımızın en güzel günlerine sizi de davet ediyoruz. ' +
-      'Kına gecemizde coşkumuzu, eğlencemizde ise birlikte güzel vakit geçirmek ' +
+      'Kına gecemizde coşkumuzu, düğünümüzde ise birlikte güzel vakit geçirmek ' +
       'için sizi aramızda görmekten büyük mutluluk duyacağız.'
   };
 
