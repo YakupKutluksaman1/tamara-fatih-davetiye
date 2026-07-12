@@ -586,8 +586,13 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   border-radius: 8px;
   padding: 0.5rem;
   margin: -0.5rem;
+  margin-bottom: 0.35rem;
   border: 1px solid rgba(201, 168, 76, 0.28);
   background: linear-gradient(180deg, rgba(201, 168, 76, 0.05), transparent);
+}
+
+.block-countdown + .block-countdown {
+  margin-top: 1.35rem;
 }
 
 .block-countdown.kina-theme .block-title,
