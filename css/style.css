@@ -558,7 +558,6 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 }
 
 .block-countdown.kina-theme,
-.block-countdown.dugun-theme,
 .program-item--kina {
   position: relative;
   overflow: hidden;
@@ -567,35 +566,6 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
 .block-countdown.kina-theme {
   transform-origin: center;
   animation: program-card-breathe 4s ease-in-out infinite;
-}
-
-.block-countdown.dugun-theme {
-  transform-origin: center;
-  animation: program-card-breathe 4s ease-in-out 1.2s infinite;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin: -0.5rem;
-  border: 1px solid rgba(114, 47, 55, 0.18);
-  background: linear-gradient(135deg, rgba(114, 47, 55, 0.05), rgba(201, 168, 76, 0.04) 55%, transparent 80%);
-}
-
-.block-countdown.dugun-theme::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.08;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23C9A84C' stroke-width='1.1' stroke-linecap='round'%3E%3Cellipse cx='26' cy='74' rx='7' ry='5' transform='rotate(-18 26 74)'/%3E%3Cpath d='M33 74 V28'/%3E%3Cpath d='M33 28 H48'/%3E%3Cellipse cx='62' cy='80' rx='6' ry='4' transform='rotate(-12 62 80)'/%3E%3Cpath d='M68 80 V34'/%3E%3Cpath d='M50 12 L51.5 16 L55.5 17 L51.5 18 L50 22 L48.5 18 L44.5 17 L48.5 16 Z' fill='%23C9A84C' stroke='none' opacity='0.55'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 88px 88px;
-  transform-origin: center;
-  animation: program-pattern-breathe-eglence 5s ease-in-out 0.8s infinite;
-}
-
-.block-countdown.dugun-theme .block-title,
-.block-countdown.dugun-theme .countdown,
-.block-countdown.dugun-theme .countdown-celebrate {
-  position: relative;
-  z-index: 1;
 }
 
 .block-countdown .block-title {
