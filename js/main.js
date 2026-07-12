@@ -2,9 +2,11 @@
   'use strict';
 
   var KINA_DATE = new Date('2026-09-06T19:00:00+03:00');
+  var DUGUN_DATE = new Date('2026-09-09T19:00:00+03:00');
   var KINA_THEME_DAYS = 7;
   var MUSIC_START = 58;
   var countdownCelebrated = false;
+  var dugunCountdownCelebrated = false;
   var kinaMode = false;
 
   var INVITE_TEXT = {
@@ -271,6 +273,7 @@
       musicBtn.hidden = false;
       startAmbient();
       startCountdown();
+      startDugunCountdown();
       initFilmstrip();
       startMusic();
     }, 650);
@@ -288,22 +291,21 @@
   intro.setAttribute('role', 'button');
 
   /* ---- Geri sayım ---- */
-  function showCountdownCelebration() {
-    if (countdownCelebrated) return;
-    countdownCelebrated = true;
+  function showCountdownCelebration(options) {
+    var block = document.getElementById(options.blockId);
+    var title = document.getElementById(options.titleId);
+    var timer = document.getElementById(options.timerId);
+    var celebrate = document.getElementById(options.celebrateId);
 
-    var block = document.getElementById('countdown-block');
-    var title = document.getElementById('countdown-title');
-    var timer = document.getElementById('countdown-timer');
-    var celebrate = document.getElementById('countdown-celebrate');
-
-    if (title) title.textContent = 'Kına Gecesi Bugün';
+    if (title) title.textContent = options.todayTitle;
     if (timer) timer.hidden = true;
     if (celebrate) celebrate.hidden = false;
     if (block) block.classList.add('is-today');
 
-    burstParticles(160);
-    setTimeout(function () { burstParticles(80); }, 350);
+    if (options.burst) {
+      burstParticles(160);
+      setTimeout(function () { burstParticles(80); }, 350);
+    }
 
     if (!animating) {
       animating = true;
@@ -311,25 +313,75 @@
     }
   }
 
+  function updateCountdownDisplay(diff, els) {
+    els.days.textContent = Math.floor(diff / 86400000);
+    els.hours.textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    els.mins.textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    els.secs.textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  }
+
   function startCountdown() {
-    var daysEl = document.getElementById('cd-days');
-    var hoursEl = document.getElementById('cd-hours');
-    var minsEl = document.getElementById('cd-mins');
-    var secsEl = document.getElementById('cd-secs');
+    var els = {
+      days: document.getElementById('cd-days'),
+      hours: document.getElementById('cd-hours'),
+      mins: document.getElementById('cd-mins'),
+      secs: document.getElementById('cd-secs')
+    };
+    if (!els.days) return;
 
     applyKinaTheme();
 
     function tickCd() {
       var diff = KINA_DATE - Date.now();
       if (diff <= 0) {
-        showCountdownCelebration();
+        if (!countdownCelebrated) {
+          showCountdownCelebration({
+            blockId: 'countdown-block',
+            titleId: 'countdown-title',
+            timerId: 'countdown-timer',
+            celebrateId: 'countdown-celebrate',
+            todayTitle: 'Kına Gecesi Bugün',
+            burst: true
+          });
+          countdownCelebrated = true;
+        }
         return;
       }
 
-      daysEl.textContent = Math.floor(diff / 86400000);
-      hoursEl.textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-      minsEl.textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-      secsEl.textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+      updateCountdownDisplay(diff, els);
+    }
+
+    tickCd();
+    setInterval(tickCd, 1000);
+  }
+
+  function startDugunCountdown() {
+    var els = {
+      days: document.getElementById('cd-dugun-days'),
+      hours: document.getElementById('cd-dugun-hours'),
+      mins: document.getElementById('cd-dugun-mins'),
+      secs: document.getElementById('cd-dugun-secs')
+    };
+    if (!els.days) return;
+
+    function tickCd() {
+      var diff = DUGUN_DATE - Date.now();
+      if (diff <= 0) {
+        if (!dugunCountdownCelebrated) {
+          showCountdownCelebration({
+            blockId: 'countdown-dugun-block',
+            titleId: 'countdown-dugun-title',
+            timerId: 'countdown-dugun-timer',
+            celebrateId: 'countdown-dugun-celebrate',
+            todayTitle: 'Düğün Bugün',
+            burst: false
+          });
+          dugunCountdownCelebrated = true;
+        }
+        return;
+      }
+
+      updateCountdownDisplay(diff, els);
     }
 
     tickCd();
