@@ -68,20 +68,24 @@ def draw_wax_seal(draw, cx, cy, r, fonts):
     draw.text((cx - tw / 2, cy - th / 2 - 2), text, fill=GOLD_LIGHT, font=fonts["seal"])
 
 
-def draw_names_stacked(draw, x, y, left, right, fonts):
-    """İsimleri iki satırda çizer: üstte bir isim, altta & diğer isim."""
+def draw_names_stacked(draw, x, y, left, right, fonts, block_width=320):
+    """İsimleri üç satırda çizer: isim, &, isim."""
     names_font = fonts["names"]
     amp_font = fonts["amp"]
 
-    draw.text((x, y), left, fill=BURGUNDY, font=names_font)
-    line_gap = 78
-    y2 = y + line_gap
-
+    left_w = text_width(draw, left, names_font)
     amp_w = text_width(draw, "&", amp_font)
-    draw.text((x, y2 + 10), "&", fill=GOLD, font=amp_font)
-    draw.text((x + amp_w + 14, y2), right, fill=BURGUNDY, font=names_font)
+    right_w = text_width(draw, right, names_font)
+    cx = x + block_width / 2
+    line_gap = 72
 
-    return y2 + 82
+    draw.text((cx - left_w / 2, y), left, fill=BURGUNDY, font=names_font)
+    y2 = y + line_gap
+    draw.text((cx - amp_w / 2, y2 + 8), "&", fill=GOLD, font=amp_font)
+    y3 = y2 + line_gap
+    draw.text((cx - right_w / 2, y3), right, fill=BURGUNDY, font=names_font)
+
+    return y3 + 82
 
 
 def main():

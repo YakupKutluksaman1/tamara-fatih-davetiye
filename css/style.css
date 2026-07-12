@@ -411,10 +411,27 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
   font-size: clamp(1.35rem, 5.5vw, 1.75rem);
   font-weight: 400;
   color: var(--burgundy);
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: 0.45rem;
   transform-origin: center;
   animation: intro-names-pulse 3.8s ease-in-out 2s infinite;
+}
+
+.couple-names-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12em;
+}
+
+.couple-name {
+  display: block;
+  line-height: 1.05;
+}
+
+.couple-name-amp {
+  margin: 0.08em 0;
+  line-height: 1;
 }
 
 .intro-amp {
@@ -1158,20 +1175,26 @@ body.kina-mode .countdown-item {
   font-size: clamp(2.2rem, 9vw, 3rem);
   font-weight: 600;
   color: var(--burgundy);
-  line-height: 1.15;
+  line-height: 1.05;
   margin-bottom: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.3em;
-  flex-wrap: wrap;
+  gap: 0.08em;
   position: relative;
+}
+
+.name-row {
+  display: inline-flex;
+  justify-content: center;
 }
 
 .name-left,
 .name-right {
   display: inline-flex;
   position: relative;
+  justify-content: center;
 }
 
 .name-left .letter,
@@ -1199,11 +1222,11 @@ body.kina-mode .countdown-item {
   animation-delay: calc(0.95s + var(--l) * 0.09s);
 }
 
-.invite.show .name-left {
+.invite.show .name-row--top {
   animation: name-float 4s ease-in-out 2s infinite;
 }
 
-.invite.show .name-right {
+.invite.show .name-row--bottom {
   animation: name-float 4s ease-in-out 2.4s infinite;
 }
 
@@ -1220,7 +1243,6 @@ body.kina-mode .countdown-item {
   font-weight: 400;
   font-size: clamp(1.8rem, 7vw, 2.4rem);
   line-height: 1;
-  align-self: center;
 }
 
 .header-line {
