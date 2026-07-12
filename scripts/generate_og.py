@@ -19,8 +19,8 @@ def load_fonts():
     try:
         return {
             "label": ImageFont.truetype("C:/Windows/Fonts/georgia.ttf", 34),
-            "names": ImageFont.truetype("C:/Windows/Fonts/georgiai.ttf", 86),
-            "amp": ImageFont.truetype("C:/Windows/Fonts/georgiai.ttf", 68),
+            "names": ImageFont.truetype("C:/Windows/Fonts/georgiai.ttf", 72),
+            "amp": ImageFont.truetype("C:/Windows/Fonts/georgiai.ttf", 56),
             "sub": ImageFont.truetype("C:/Windows/Fonts/georgiai.ttf", 30),
             "event": ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 24),
             "date": ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 22),
@@ -66,6 +66,22 @@ def draw_wax_seal(draw, cx, cy, r, fonts):
     bbox = draw.textbbox((0, 0), text, font=fonts["seal"])
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     draw.text((cx - tw / 2, cy - th / 2 - 2), text, fill=GOLD_LIGHT, font=fonts["seal"])
+
+
+def draw_names_stacked(draw, x, y, left, right, fonts):
+    """İsimleri iki satırda çizer: üstte bir isim, altta & diğer isim."""
+    names_font = fonts["names"]
+    amp_font = fonts["amp"]
+
+    draw.text((x, y), left, fill=BURGUNDY, font=names_font)
+    line_gap = 78
+    y2 = y + line_gap
+
+    amp_w = text_width(draw, "&", amp_font)
+    draw.text((x, y2 + 10), "&", fill=GOLD, font=amp_font)
+    draw.text((x + amp_w + 14, y2), right, fill=BURGUNDY, font=names_font)
+
+    return y2 + 82
 
 
 def main():
@@ -120,21 +136,17 @@ def main():
     draw_ornament(draw, tx + 130, ty + 52, 260, GOLD)
 
     names_y = ty + 78
-    left, amp, right = "Tamara", "&", "Fatih Emir"
-    draw.text((tx, names_y), left, fill=BURGUNDY, font=fonts["names"])
-    ax = tx + text_width(draw, left, fonts["names"]) + 12
-    draw.text((ax, names_y + 12), amp, fill=GOLD, font=fonts["amp"])
-    draw.text((ax + text_width(draw, amp, fonts["amp"]) + 12, names_y), right, fill=BURGUNDY, font=fonts["names"])
+    names_bottom = draw_names_stacked(draw, tx, names_y, "Tamara", "Fatih Emir", fonts)
 
     sub = "Sizi kına ve düğünümüze"
     sub2 = "davet ediyoruz"
-    draw.text((tx, names_y + 108), sub, fill=MUTED, font=fonts["sub"])
-    draw.text((tx, names_y + 142), sub2, fill=MUTED, font=fonts["sub"])
+    draw.text((tx, names_bottom + 8), sub, fill=MUTED, font=fonts["sub"])
+    draw.text((tx, names_bottom + 42), sub2, fill=MUTED, font=fonts["sub"])
 
-    draw.line([(tx, names_y + 196), (tx + 300, names_y + 196)], fill=GOLD, width=2)
-    draw.text((tx, names_y + 214), "6 Eylül · Kına Gecesi", fill=MUTED, font=fonts["event"])
-    draw.text((tx, names_y + 248), "9 Eylül · Düğün", fill=MUTED, font=fonts["event"])
-    draw.text((tx, names_y + 290), "Antalya · 2026", fill=GOLD, font=fonts["date"])
+    draw.line([(tx, names_bottom + 96), (tx + 300, names_bottom + 96)], fill=GOLD, width=2)
+    draw.text((tx, names_bottom + 114), "6 Eylül · Kına Gecesi", fill=MUTED, font=fonts["event"])
+    draw.text((tx, names_bottom + 148), "9 Eylül · Düğün", fill=MUTED, font=fonts["event"])
+    draw.text((tx, names_bottom + 190), "Antalya · 2026", fill=GOLD, font=fonts["date"])
 
     draw_wax_seal(draw, card_x + card_w - 95, card_y + card_h - 72, 38, fonts)
 

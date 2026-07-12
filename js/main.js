@@ -7,12 +7,6 @@
   var countdownCelebrated = false;
   var kinaMode = false;
 
-  /* Hediye bilgileri — buradan güncelleyin */
-  var GIFT = {
-    name: 'Tamara Kutluksaman',
-    iban: 'TR49 0004 6000 5688 8000 4354 80'
-  };
-
   var INVITE_TEXT = {
     generic:
       'Sevgili dostlarımız, hayatımızın en güzel günlerine sizleri de davet ediyoruz. ' +
@@ -360,53 +354,6 @@
     cell.innerHTML = '<img src="' + src + '" alt="' + (alt || '') + '" loading="lazy">';
     track.appendChild(cell);
   };
-
-  /* ---- Hediye bölümü ---- */
-  function initGift() {
-    var nameEl = document.getElementById('gift-name');
-    var ibanEl = document.getElementById('gift-iban');
-    var copyBtn = document.getElementById('gift-copy');
-    if (!nameEl || !ibanEl || !copyBtn) return;
-
-    nameEl.textContent = GIFT.name;
-    ibanEl.textContent = GIFT.iban;
-
-    copyBtn.addEventListener('click', function () {
-      var raw = GIFT.iban.replace(/\s/g, '');
-      var done = function () {
-        copyBtn.textContent = 'Kopyalandı ✓';
-        copyBtn.classList.add('copied');
-        setTimeout(function () {
-          copyBtn.textContent = 'IBAN\'ı Kopyala';
-          copyBtn.classList.remove('copied');
-        }, 2000);
-      };
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(raw).then(done).catch(function () {
-          fallbackCopy(raw, done);
-        });
-      } else {
-        fallbackCopy(raw, done);
-      }
-    });
-  }
-
-  function fallbackCopy(text, cb) {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    try {
-      document.execCommand('copy');
-      cb();
-    } catch (e) { /* sessiz */ }
-    document.body.removeChild(ta);
-  }
-
-  initGift();
 
   /* ---- Müzik ---- */
   if (audio) {
